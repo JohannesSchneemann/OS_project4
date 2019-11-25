@@ -1,16 +1,14 @@
-OS_project4
-
-CS OS 4328.003 - Project 4
-Johannes Schneemann
-j_s1011
-Due date: 11/26/2019
+CS OS 4328.003 - Project 4  
+Johannes Schneemann  
+j_s1011  
+Due date: 11/26/2019  
 
 
-included files:    pageAlgos.c
+included files:    pageAlgos.c  
 1. use 'gcc pageAlgos.c -o paging' to make executable
 2. run './paging' to execute the program for this assignment
 
-Note
+Note  
 The program will ask for 2 types of input:
 1. length of reference string (1-20)
 2. number of frames to use (1-5) -> Dr. Chen said max. number of 5 frames is enough.  
@@ -23,9 +21,9 @@ the Optimal Algorithm produces better results than the LRU Algorithm.
 
 Example output:
 
-MBP:pageAlgo hannes$ ./paging 
-Please enter the length of the reference string (max 20):20
-Please enter the number of frames to use (max 5):4
+MBP:pageAlgo hannes$ ./paging   
+Please enter the length of the reference string (max 20): 20  
+Please enter the number of frames to use (max 5): 4
 
 The generated reference string is:
 4 3 5 1 3 2 5 2 4 3 5 3 2 4 5 3 2 1 2 4
