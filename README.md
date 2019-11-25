@@ -31,15 +31,15 @@ Please enter the length of the reference string (max 20):20
 Please enter the number of frames to use (max 5):4
 
 The generated reference string is:
-4 3 5 1 3 2 5 2 4 3 5 3 2 4 5 3 2 1 2 4 
+4 3 5 1 3 2 5 2 4 3 5 3 2 4 5 3 2 1 2 4
 
-<----------*** OPTIMAL ALRORITHM ***---------->
-4 0 0 0 
-4 3 0 0 
-4 3 5 0 
-4 3 5 1 
+<----- OPTIMAL ALGORITHM ---->
+4 0 0 0
+4 3 0 0
+4 3 5 0
+4 3 5 1
 3 found in memory.
-4 3 5 2 
+4 3 5 2
 5 found in memory.
 2 found in memory.
 4 found in memory.
@@ -51,21 +51,21 @@ The generated reference string is:
 5 found in memory.
 3 found in memory.
 2 found in memory.
-4 1 5 2 
+4 1 5 2
 2 found in memory.
 4 found in memory.
 NUMBER OF PAGE FAULTS: 6
 
-<----------*** LRU ALRORITHM ***---------->
-4 0 0 0 
-4 3 0 0 
-4 3 5 0 
-4 3 5 1 
+<----LRU ALGORITHM ---->
+4 0 0 0
+4 3 0 0
+4 3 5 0
+4 3 5 1
 3 is in memory.
-2 3 5 1 
+2 3 5 1
 5 is in memory.
 2 is in memory.
-2 3 5 4 
+2 3 5 4
 3 is in memory.
 5 is in memory.
 3 is in memory.
@@ -74,8 +74,7 @@ NUMBER OF PAGE FAULTS: 6
 5 is in memory.
 3 is in memory.
 2 is in memory.
-2 3 5 1 
+2 3 5 1
 2 is in memory.
-2 3 4 1 
+2 3 4 1
 NUMBER OF PAGE FAULTS: 8
-
