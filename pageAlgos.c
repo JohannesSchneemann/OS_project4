@@ -51,9 +51,9 @@ int main(){
 
             //random reference string
             for(int i = 0; i < refStringLength; i++){
-                int randInt = ((rand() % 5) + 1);
-                if(randInt != referenceString[i - 1]){
-                    referenceString[i] = randInt;
+                int randomInt = ((rand() % 5) + 1);
+                if(randomInt != referenceString[i - 1]){
+                    referenceString[i] = randomInt;
                 }else{
                     i--;
                 }
@@ -74,12 +74,11 @@ int main(){
             
             /*
              *  Optimal Algorithm
+             *  If there is an empty frame & reference is not in the list,
+             *  load a page into it. Variable i iterates through the frames
+             *  and variable j iterates through the reference string.
              */
             printf("\n<----------*** OPTIMAL ALRORITHM ***---------->\n");
-            /*  If there is an empty frame & reference is not in the list,
-            *   load a page into it. Variable i iterates through the frames
-            *   and variable j iterates through the reference string.
-            */
             i = 0;
             int j = 0;
             for(j = 0; i < numberFrames; j++){
@@ -90,30 +89,59 @@ int main(){
                     i++;
                     displayMemory(memory, numberFrames);
                 }else{
-                    printf("%d Page found in memory.\n", referenceString[j]);
+                    printf("%d is in memory\n", referenceString[j]);
                 }
             }
             while(j < refStringLength){
                 int out = 0;
                 if(inMemory(referenceString[j], memory, numberFrames)){
-                    printf("%d found in memory.\n", referenceString[j]);
+                    printf("%d is in memory\n", referenceString[j]);
                 }else{
                     /*
-                     *  Page replacement section for Optimal
+                     *  Page replacement section for Optimal begins
                      */
-                   
+                    int replacementIndex = 0;
+                    int found = 0;
+                    for(int m = 0; m < numberFrames; m++){
+                        found = 0;
+                        int frameValue = memory[m];
+                        for(int n = j; n < refStringLength; n++){
+                            if(frameValue == referenceString[n]){
+                                found = 1;
+                                if(m == 0)
+                                    replacementIndex = n;
+                                else{
+                                    replacementIndex = max(replacementIndex, n);
+                                }
+                                break;
+                            }
+                        }
+                        if(!found) {
+                            out = frameValue;
+                            break;
+                        }
+                    }
+                    if(found)
+                        out = referenceString[replacementIndex];
+                    for(int n = 0; n < numberFrames; n++) {
+                        if (memory[n] == out) {
+                            memory[n] = referenceString[j];
+                        break;
+                        }
+                    }
+                    displayMemory(memory, numberFrames);
+                }
+                j++;
             }
             printf("NUMBER OF PAGE FAULTS: %d\n", pageFaults);
 
             /*
-            *  LRU Algorithm
-            */
-            printf("\n<----------*** LRU ALRORITHM ***---------->\n");
-            /*  If there is an empty frame & reference is not in the list,
+            *   LRU Algorithm
+            *   If there is an empty frame & reference is not in the list,
             *   load a page into it. Variable i iterates through the frames
             *   and variable j iterates through the reference string.
             */
-
+            printf("\n<----------*** LRU ALGORITHM ***-------------->\n");
             //initialize all frames to zero and reset page fault counter
             for(int i = 0; i < numberFrames; i++)
                 memory[i] = 0;
@@ -129,21 +157,41 @@ int main(){
                     i++;
                     displayMemory(memory, numberFrames);
                 }else{
-                    printf("%d is in memory.\n", referenceString[j]);
+                    printf("%d is in memory\n", referenceString[j]);
                 }
             }
             while(j < refStringLength){
                 int _replacementIndex;
                 int _out;
                 if(inMemory(referenceString[j], memory, numberFrames)){
-                    printf("%d is in memory.\n", referenceString[j]);
+                    printf("%d is in memory\n", referenceString[j]);
                 }else{
                     /*
-                     *      Page replacement section for LRU
+                     *  Page replacement section for LRU begins
                      *  Move from the end to get LRU and determines
                      *  LRU by getting most previous reference string call
                      */
-                   
+                    _replacementIndex = 20;
+                    int _frameValue = -1;
+                    for(int m = 0; m < numberFrames; m++){
+                        _frameValue = memory[m];
+                        for(int n = (j-1); n >= 0; n--){
+                            if(_frameValue == referenceString[n]){
+                                _replacementIndex = min(_replacementIndex, n);
+                            break;
+                            }
+                        }
+                    }
+                    _out = referenceString[_replacementIndex];
+                    for(int n = 0; n < numberFrames; n++){
+                        if(memory[n] == _out){
+                            memory[n] = referenceString[j];
+                            break;
+                        }
+                    }
+                    displayMemory(memory, numberFrames);
+                }
+                j++;
             }
             printf("NUMBER OF PAGE FAULTS: %d\n\n", pageFaults);
             break;
@@ -154,11 +202,21 @@ int main(){
 }
 
 int inMemory(int reference, int memory[], int numberFrames){
-   
+    int loaded = 0;
+    for(int i = 0; i < numberFrames; i++){
+        if(reference == memory[i]){
+            loaded = 1;
+            break;
+        }
+    }
+    return loaded;
 }
 
 void displayMemory(int memory[], int numberFrames){
-    
+    for(int i = 0; i < numberFrames; i++)
+        printf("%d ", memory[i]);
+    printf("\n");
+    pageFaults++;
 }
 
 int min(int a, int b){
@@ -172,5 +230,3 @@ int max(int a, int b){
         return a;
     return b;
 }
-
-
